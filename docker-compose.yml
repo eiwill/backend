@@ -1,0 +1,26 @@
+frontend:
+    build: .
+    dockerfile: docker/Dockerfile_frontend
+    ports:
+        - "5000:5000"
+    links:
+        - redis
+        - rabbit
+    environment:
+        - "FLASKR_SETTINGS=/srv/frontend/conf.d/frontend-docker.conf"
+    volumes:
+        - ./conf.d/frontend-docker.conf:/srv/frontend/conf.d/frontend-docker.conf
+redis:
+    image: redis
+
+rabbit:
+    image: rabbitmq
+
+worker:
+    build: .
+    dockerfile: docker/Dockerfile_worker
+    links:
+        - redis
+        - rabbit
+    environment:
+        - "WORKER_PARAMS=-a amqp://guest:guest@rabbit:5672// -rh redis"

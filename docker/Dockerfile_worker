@@ -1,0 +1,8 @@
+# Set the base image to Ubuntu
+FROM test/base
+
+ADD . /srv/worker
+
+WORKDIR /srv/worker
+
+ENTRYPOINT make run-worker

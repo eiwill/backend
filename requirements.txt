@@ -1,0 +1,6 @@
+flask
+redis
+
+flexmock
+kombu
+anyconfig

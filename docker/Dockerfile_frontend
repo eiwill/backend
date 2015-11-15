@@ -1,0 +1,10 @@
+# Set the base image to Ubuntu
+FROM test/base
+
+ADD . /srv/frontend
+
+WORKDIR /srv/frontend
+
+ENTRYPOINT make run-frontend
+
+EXPOSE 5000
